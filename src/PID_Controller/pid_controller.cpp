@@ -1,5 +1,5 @@
 #include "pid_controller.hpp"
-
+#include <limits>
 namespace line_follower{
 
 PIDController::PIDController(){
@@ -7,7 +7,8 @@ PIDController::PIDController(){
     proportional_ = integral_ = derivative_ = 0.0;
     target_ = actual_ = error_ = previous_error_ = 0.0;
     output_ = 0.0;
-    max_integral_ = min_integral_ = max_output_ = min_output_ = 0.0;
+    min_integral_ = min_output_ = std::numeric_limits<double>::min();
+    max_integral_ = max_output_ = std::numeric_limits<double>::max();
     dt_ = 0.0;
     }
 
@@ -55,6 +56,11 @@ double PIDController::limitToRange(double value,double min, double max){
         return min;
     else
         return value;
+}
+
+void PIDController::reset(){
+    proportional_ = integral_= derivative_=0;
+    dt_ = 0;
 }
    
 } // namespace line_follower

@@ -25,7 +25,6 @@ class PIDController{
         double limitToRange(double value, double min, double max);
         
         
-        
     public:
         PIDController();
         ~PIDController();

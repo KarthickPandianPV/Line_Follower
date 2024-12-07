@@ -1,16 +1,19 @@
 #ifndef LINE_FOLLOWER_IR_ARRAY_IR_ARRAY_HPP
 #define LINE_FOLLOWER_IR_ARRAY_IR_ARRAY_HPP
 
-#include "config.hpp"
+
+#define IR_ARRAY_SIZE           5
+int const kIrArrayPins[IR_ARRAY_SIZE]   = {1,2,3,4,5};
+int const ir_weights[IR_ARRAY_SIZE]     = {-3,-1,0,1,3};
 
 namespace line_follower{
 
 class IRArray{
     private:
-        int ir_values_[kIrArraySize];
-        int ir_offsets_min_[kIrArraySize];
-        int ir_offsets_max_[kIrArraySize];
-        double combined_weighted_value_;
+        uint8_t ir_values_[IR_ARRAY_SIZE];
+        uint8_t ir_offsets_min_[IR_ARRAY_SIZE];
+        uint8_t ir_offsets_max_[IR_ARRAY_SIZE];
+        float combined_weighted_value_;
 
         
     

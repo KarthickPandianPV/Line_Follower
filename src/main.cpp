@@ -9,6 +9,8 @@ void setup() {
     pid_controller.setGains(1, 0, 0);
     pid_controller.setMinMaxLimits(-255, 255, -255, 255);
     pid_controller.setTarget(0);
+
+    //Initialize the IR Array
   
 }
 

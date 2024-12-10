@@ -4,26 +4,26 @@
 #include <Arduino.h>
 
 #define IR_ARRAY_SIZE 7
-//IR Pins
-const uint8_t irPins[IR_ARRAY_SIZE] = {A0, A1, A2, A3, A4, A5, A6};
-//IR Weight
-const uint8_t irWeight[IR_ARRAY_SIZE] = {-3, -2, -1, 0, 1, 2, 3};
-//IR Offset
-uint8_t irOffset[IR_ARRAY_SIZE] = {0, 0, 0, 0, 0, 0, 0};
 
-namespace line_follower{
-    class IR_Array{
-        private:
-        uint8_t irValues[IR_ARRAY_SIZE]={0,0,0,0,0,0,0};
+const uint8_t ir_pins[IR_ARRAY_SIZE] = {A0, A1, A2, A3, A4, A5, A6};
+const uint8_t ir_weight[IR_ARRAY_SIZE] = {-8, -5, -2, 0, 2, -5, 8};
+uint8_t ir_min_offset[IR_ARRAY_SIZE] = {1023, 1023, 1023, 1023,
+                                        1023, 1023, 1023};
+uint8_t ir_max_offset[IR_ARRAY_SIZE] = {0, 0, 0, 0, 0, 0, 0};
 
-        public:
-        IR_Array();
-        void begin();
-        void readValues();
-        void calibrate();
-        float getError();
-    };
-}
+namespace line_follower {
+class IR_Array {
+ private:
+  uint8_t ir_values[IR_ARRAY_SIZE] = {0, 0, 0, 0, 0, 0, 0};
+  float position = 0;
 
+ public:
+  IR_Array();
+  void initialize();
+  void readValues();
+  void calibrate(int count);
+  float getPosition();
+};
+}  // namespace line_follower
 
-#endif // LINE_FOLLOWER_SRC_IR_ARRAY_IR_ARRAY_HPP
+#endif  // LINE_FOLLOWER_SRC_IR_ARRAY_IR_ARRAY_HPP

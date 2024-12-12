@@ -6,10 +6,7 @@
 #include "IR_Array/ir_array.hpp"
 #include "Motor_Driver/motor_driver.hpp"
 #include "PID_Controller/pid_controller.hpp"
-
-line_follower::PIDController pid_controller;
-line_follower::IR_Array ir_array;
-line_follower::MotorDriver left, right;
+#include "Bluetooth/bluetooth.hpp"
 
 #define MOTOR_LEFT_PIN1 2
 #define MOTOR_LEFT_PIN2 3
@@ -24,5 +21,6 @@ using namespace line_follower;
 IR_Array ir_array;
 PIDController pid_controller;
 MotorDriver motor_driver;
+Bluetooth blue_tooth;
 
 #endif  // LINE_FOLLOWER_SRC_MAIN_HPP

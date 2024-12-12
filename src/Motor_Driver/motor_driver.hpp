@@ -6,6 +6,7 @@
 namespace line_follower {
 class MotorDriver {
  private:
+ int standby_pin_;
   int left_motor_pin1_;
   int left_motor_pin2_;
   int left_motor_pwm_pin_;
@@ -20,6 +21,7 @@ class MotorDriver {
   ~MotorDriver();
 
   void Initialize();
+  void calibrationMode(int rotation_speed);
   void StopMotors();
   void DriveLeftMotor(int speed);
   void DriveRightMotor(int speed);

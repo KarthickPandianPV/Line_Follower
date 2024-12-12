@@ -15,7 +15,7 @@ PIDController::PIDController() {
 
 PIDController::~PIDController() {}
 
-void PIDController::setGains(double kp, double ki, double kd) {
+void PIDController::setGains(float kp, float ki, float kd) {
   kp_ = kp;
   ki_ = ki;
   kd_ = kd;

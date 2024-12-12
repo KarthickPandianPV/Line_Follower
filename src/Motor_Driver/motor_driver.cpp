@@ -15,6 +15,9 @@ MotorDriver ::MotorDriver() {
 MotorDriver ::~MotorDriver(){};
 
 void MotorDriver::Initialize() {
+  pinMode(standby_pin_, OUTPUT);  
+  digitalWrite(standby_pin_, HIGH);
+
   pinMode(left_motor_pin1_, OUTPUT);
   pinMode(left_motor_pin2_, OUTPUT);
   pinMode(left_motor_pwm_pin_, OUTPUT);
@@ -70,6 +73,11 @@ void MotorDriver::DriveRightMotor(int speed) {
     digitalWrite(right_motor_pin2_, LOW);
     analogWrite(right_motor_pwm_pin_, 0);
   }
+}
+
+void MotorDriver::calibrationMode(int rotation_speed) {
+  DriveLeftMotor(rotation_speed);
+  DriveRightMotor(-rotation_speed);
 }
 
 void MotorDriver::ControlMotors(float ir_weighted_position,

@@ -1,5 +1,7 @@
 #include "motor_driver.hpp"
 
+#include "config.hpp"
+
 namespace line_follower {
 MotorDriver ::MotorDriver() {
   left_motor_pin1_ = 2;
@@ -15,7 +17,7 @@ MotorDriver ::MotorDriver() {
 MotorDriver ::~MotorDriver(){};
 
 void MotorDriver::Initialize() {
-  pinMode(standby_pin_, OUTPUT);  
+  pinMode(standby_pin_, OUTPUT);
   digitalWrite(standby_pin_, HIGH);
 
   pinMode(left_motor_pin1_, OUTPUT);
@@ -91,8 +93,12 @@ void MotorDriver::ControlMotors(float ir_weighted_position,
     // Turn Right
     DriveLeftMotor(base_speed);
     DriveRightMotor(0);
-  } else {
-    // PID Mode
+  } else if (ir_weighted_position >= turn_threshold_low &&
+             ir_weighted_position < 0) {
+    DriveLeftMotor(base_speed - pid_correction);
+    DriveRightMotor(base_speed + pid_correction);
+  } else if (ir_weighted_position <= turn_threshold_high &&
+             ir_weighted_position > 0) {
     DriveLeftMotor(base_speed + pid_correction);
     DriveRightMotor(base_speed - pid_correction);
   }

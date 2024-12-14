@@ -4,9 +4,10 @@
 #include <Arduino.h>
 
 #include "IR_Array/ir_array.hpp"
-#include "Motor_Driver/motor_driver.hpp"
-#include "PID_Controller/pid_controller.hpp"
+// #include "Motor_Driver/motor_driver.hpp"
+#include "Algorithms/algorithms.hpp"
 #include "Bluetooth/bluetooth.hpp"
+#include "PID_Controller/pid_controller.hpp"
 
 #define MOTOR_LEFT_PIN1 2
 #define MOTOR_LEFT_PIN2 3

@@ -15,7 +15,7 @@ float pid_correction = 0;
 float turn_threshold_low = -5;
 float turn_threshold_high = 5;
 int base_speed = 150;
-float* pid_values;
+float *pid_values, *previous_pid_values;
 HardwareSerial bluetooth_serial(PA10, PA9);
 
 void setup() {
@@ -34,10 +34,21 @@ void loop() {
     }
     calibrate_ir_flag = 0;
   }
+
   if (bluetooth_serial.available()) {
     pid_values = blue_tooth.getPIDValues(bluetooth_serial);
+    if (pid_values[0] != previous_pid_values[0] ||
+        pid_values[1] != previous_pid_values[1] ||
+        pid_values[2] != previous_pid_values[2]) {
+      kp = pid_values[0];
+      ki = pid_values[1];
+      kd = pid_values[2];
+      pid_controller.setGains(kp, ki, kd);
+      previous_pid_values[0] = kp;
+      previous_pid_values[1] = ki;
+      previous_pid_values[2] = kd;
+    }
   }
-
   ir_array.readValues();
   ir_array.normalize();
   ir_weighted_position = ir_array.getPosition();

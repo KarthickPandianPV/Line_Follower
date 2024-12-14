@@ -6,13 +6,7 @@
 namespace line_follower {
 class MotorDriver {
  private:
- int standby_pin_;
-  int left_motor_pin1_;
-  int left_motor_pin2_;
-  int left_motor_pwm_pin_;
-  int right_motor_pin1_;
-  int right_motor_pin2_;
-  int right_motor_pwm_pin_;
+  int standby_pin_;
   int min_pwm_;
   int max_pwm_;
 

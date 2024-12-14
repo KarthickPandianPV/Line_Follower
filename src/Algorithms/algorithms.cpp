@@ -7,6 +7,8 @@ namespace line_follower {
 Algorithms::Algorithms() {}
 Algorithms::~Algorithms() {}
 
+void Algorithms::free_run() {}
+
 void Algorithms::dfs(uint8_t mode) {
   // Implement BFS algorithm here
   // switch (mode) { case 0: }

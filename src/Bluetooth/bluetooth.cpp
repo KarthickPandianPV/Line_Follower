@@ -15,6 +15,7 @@ std::vector<String> Bluetooth::splitString(const String& data, char delimiter) {
   while (end != -1) {
     result.push_back(data.substring(start, end));
     start = end + 1;
+    
     end = data.indexOf(delimiter, start);
   }
 

@@ -19,7 +19,7 @@ class MotorDriver {
   void StopMotors();
   void DriveLeftMotor(int speed);
   void DriveRightMotor(int speed);
-  void ControlMotors(float ir_weighted_position, int turn_threshold_low,
+  void ControlMotors(float l_position, float r_position, int turn_threshold_low,
                      int turn_threshold_high, int base_speed,
                      int pid_correction);
 };

@@ -11,7 +11,8 @@ class IR_Array {
   int ir_min_offset[ARRAY_SIZE] = {1023, 1023, 1023, 1023, 1023, 1023, 1023};
   int ir_max_offset[ARRAY_SIZE] = {0, 0, 0, 0, 0, 0, 0};
   uint8_t ir_values[ARRAY_SIZE] = {0, 0, 0, 0, 0, 0, 0};
-  float position = 0;
+  float l_position = 0;
+  float r_position = 0;
 
  public:
   IR_Array();
@@ -20,7 +21,9 @@ class IR_Array {
   void readValues();
   void calibrate();
   void normalize();
-  float getPosition();
+  float calculatePosition();
+  float getLeftPosition();
+  float getRightPosition();
 };
 }  // namespace line_follower
 

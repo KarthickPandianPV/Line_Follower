@@ -82,23 +82,21 @@ void MotorDriver::calibrationMode(int rotation_speed) {
   DriveRightMotor(-rotation_speed);
 }
 
-void MotorDriver::ControlMotors(float ir_weighted_position,
+void MotorDriver::ControlMotors(float l_position, float r_position,
                                 int turn_threshold_low, int turn_threshold_high,
                                 int base_speed, int pid_correction) {
-  if (ir_weighted_position < turn_threshold_low) {
+  if (l_position < turn_threshold_low) {
     // Turn Left
     DriveLeftMotor(0);
     DriveRightMotor(base_speed);
-  } else if (ir_weighted_position > turn_threshold_high) {
+  } else if (r_position > turn_threshold_high) {
     // Turn Right
     DriveLeftMotor(base_speed);
     DriveRightMotor(0);
-  } else if (ir_weighted_position >= turn_threshold_low &&
-             ir_weighted_position < 0) {
+  } else if (l_position >= turn_threshold_low && l_position < 0) {
     DriveLeftMotor(base_speed - pid_correction);
     DriveRightMotor(base_speed + pid_correction);
-  } else if (ir_weighted_position <= turn_threshold_high &&
-             ir_weighted_position > 0) {
+  } else if (r_position <= turn_threshold_high && r_position > 0) {
     DriveLeftMotor(base_speed + pid_correction);
     DriveRightMotor(base_speed - pid_correction);
   }

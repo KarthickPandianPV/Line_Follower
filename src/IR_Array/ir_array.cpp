@@ -36,17 +36,28 @@ void IR_Array::normalize() {
   }
 }
 
-float IR_Array::getPosition() {
-  float weighted_sum = 0;
-  float total = 0;
+float IR_Array::calculatePosition() {
+  float l_weighted_sum = 0;
+  float r_weighted_sum = 0;
+  float l_sum = 0;
+  float r_sum = 0;
+  float position = 0;
   for (int i = 0; i < ARRAY_SIZE; i++) {
-    weighted_sum += ir_values[i] * ir_weight[i];
-    total += ir_values[i];
+    if (i < 3) {
+      l_weighted_sum += ir_values[i] * ir_weight[i];
+      l_sum += ir_values[i];
+    } else if (i > 3) {
+      r_weighted_sum += ir_values[i] * ir_weight[i];
+      r_sum += ir_values[i];
+    }
   }
-  if (total == 0) {
-    return 0;
-  }
-  position = weighted_sum / total;
+  position = (l_weighted_sum + r_weighted_sum + (ir_values[3] * ir_weight[3])) /
+             (l_sum + r_sum + ir_values[3]);
+  l_position = l_weighted_sum / l_sum;
+  r_position = r_weighted_sum / r_sum;
   return position;
 }
+
+float IR_Array::getLeftPosition() { return l_position; }
+float IR_Array::getRightPosition() { return r_position; }
 }  // namespace line_follower

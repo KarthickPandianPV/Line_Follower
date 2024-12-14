@@ -7,7 +7,7 @@ const uint8_t ir_switch_pin = 1, mode_switch_pin = 2, algorithm_switch_pin = 3;
 const uint8_t dfs_pins[3] = {4, 5, 6};
 int calibration_time = 5000;
 int rotation_speed = 100;
-float ir_weighted_position = 0;
+float l_position = 0, r_position = 0, position = 0;
 long previous_time = 0;
 long current_time = 0;
 long dt = 0;
@@ -51,13 +51,14 @@ void loop() {
   }
   ir_array.readValues();
   ir_array.normalize();
-  ir_weighted_position = ir_array.getPosition();
+  position = ir_array.calculatePosition();
+  l_position = ir_array.getLeftPosition();
+  r_position = ir_array.getRightPosition();
   current_time = millis();
   dt = current_time - previous_time;
   previous_time = current_time;
-  pid_correction = pid_controller.calculateOutput(ir_weighted_position, dt);
-
-  motor_driver.ControlMotors(ir_weighted_position, turn_threshold_low,
+  pid_correction = pid_controller.calculateOutput(position, dt);
+  motor_driver.ControlMotors(l_position, r_position, turn_threshold_low,
                              turn_threshold_high, base_speed, pid_correction);
 
   if (mode_flag) {
